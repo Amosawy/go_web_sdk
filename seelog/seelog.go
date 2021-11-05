@@ -38,6 +38,21 @@ func Info(params ...interface{}) {
 	seelog.Info(newParams...)
 }
 
+
+func Errorf(format string, params ...interface{}) {
+	seelog.Infof(getPrefix(LOG_LEVEL_ERROR)+format, params...)
+}
+
+func Error(params ...interface{}) {
+	prefix := getPrefix(LOG_LEVEL_ERROR)
+	var newParams []interface{}
+	newParams = append(newParams, prefix)
+	for _, v := range params {
+		newParams = append(newParams, v)
+	}
+	seelog.Info(newParams...)
+}
+
 func Flush() {
 	seelog.Flush()
 }
