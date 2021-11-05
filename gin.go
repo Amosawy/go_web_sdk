@@ -1,10 +1,10 @@
 package go_web_sdk
 
 import (
-	"Gin_Gateway/src/go_web_sdk/middleware/middle_utils"
-	"Gin_Gateway/src/go_web_sdk/middleware/mlog"
-	"Gin_Gateway/src/go_web_sdk/seelog"
 	"fmt"
+	"github.com/Amosawy/go_web_sdk/middleware/middle_utils"
+	"github.com/Amosawy/go_web_sdk/middleware/mlog"
+	"github.com/Amosawy/go_web_sdk/seelog"
 	"github.com/fvbock/endless"
 	"github.com/gin-gonic/gin"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
