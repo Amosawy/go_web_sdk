@@ -2,7 +2,6 @@ package mlog
 
 import (
 	"bytes"
-	"encoding/json"
 	"fmt"
 	"github.com/Amosawy/go_web_sdk/middleware/middle_utils"
 	"github.com/Amosawy/go_web_sdk/seelog"
@@ -54,12 +53,12 @@ func InfoLog() gin.HandlerFunc {
 			strBody = strBody[:(MAX_PRINT_BODY_LEN - 1)]
 		}
 		//6. judge logic error
-		getterFactory := middle_utils.GetRespGetterFactory()
-		rspGetter := getterFactory()
-		json.Unmarshal(blw.BodyBuf.Bytes(), &rspGetter)
-		if rspGetter.GetCode() != middle_utils.REQUEST_SUCCESS {
-			middle_utils.ReqLoginErrorVec.WithLabelValues(context.Request.URL.Path, fmt.Sprintf("%d", 1)).Inc()
-		}
+		//getterFactory := middle_utils.GetRespGetterFactory()
+		//rspGetter := getterFactory()
+		//json.Unmarshal(blw.BodyBuf.Bytes(), &rspGetter)
+		//if rspGetter.GetCode() != middle_utils.REQUEST_SUCCESS {
+		//	middle_utils.ReqLoginErrorVec.WithLabelValues(context.Request.URL.Path, fmt.Sprintf("%d", 1)).Inc()
+		//}
 		seelog.Infof("url: %+v, cost %v Resp Body %s", context.Request.URL, time.Since(beginTime), strBody)
 		duration := float64(time.Since(beginTime)) / float64(time.Second)
 		middle_utils.ReqDurationVec.WithLabelValues(context.Request.URL.Path).Observe(duration)
