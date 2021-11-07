@@ -2,15 +2,14 @@ package go_web_sdk
 
 import (
 	"fmt"
+	"github.com/Amosawy/go_web_sdk/response"
 	"github.com/Amosawy/go_web_sdk/router"
 	"github.com/gin-gonic/gin"
-	"net/http"
 	"testing"
 )
 
 func test1(c *gin.Context) {
-	c.JSON(200, gin.H{})
-	c.String(http.StatusOK, "hello")
+	c.JSON(200, response.BuildSuccessResp("i am amos"))
 }
 
 func TestWeb(t *testing.T) {
