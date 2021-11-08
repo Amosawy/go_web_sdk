@@ -12,6 +12,7 @@ type ResData struct {
 
 var (
 	RESP_SUCC = Build(0,"请求成功")
+	RESP_FAIL = Build(0xFFFF,"请求失败")
 )
 
 func Build(resCode int,resMsg string) *ResBase{
@@ -32,4 +33,7 @@ func BuildSuccessResp(data interface{})  *ResData{
 	return NewResData(RESP_SUCC,data)
 }
 
+func BuildFailResp(data interface{}) *ResData {
+	return NewResData(RESP_FAIL,data)
+}
 
