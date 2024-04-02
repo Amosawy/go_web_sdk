@@ -20,7 +20,7 @@ func init() {
 	IgnorePaths = []string{
 		URL_HEART_BEAT,
 		URL_METRICS,
-		URL_CLB_HEART
+		URL_CLB_HEART,
 	}
 }
 
