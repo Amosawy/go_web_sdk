@@ -3,15 +3,16 @@ package mlog
 import (
 	"bytes"
 	"fmt"
+	"io/ioutil"
+	"strings"
+	"time"
+
 	"github.com/Amosawy/go_web_sdk/middleware/middle_utils"
 	"github.com/Amosawy/go_web_sdk/seelog"
 	"github.com/Amosawy/go_web_sdk/tools"
 	"github.com/gin-gonic/gin"
 	"github.com/go-basic/uuid"
 	"github.com/quanhengzhuang/requestid"
-	"io/ioutil"
-	"strings"
-	"time"
 )
 
 const MAX_PRINT_BODY_LEN = 1024
@@ -38,7 +39,7 @@ func InfoLog() gin.HandlerFunc {
 		}
 		requestid.Set(requestId)
 		defer requestid.Delete()
-		seelog.Infof("Req Url: %s %+v,Body %s  Header: %s", context.Request.Method, context.Request.URL, string(body), tools.GetFmtStr(context.Request.Header))
+		seelog.Infof("Req Url: %s %+v,Body %s Header: %s", context.Request.Method, context.Request.URL, string(body), tools.GetFmtStr(context.Request.Header))
 		//3. set response writer
 		blw := middle_utils.BodyLogWriter{
 			ResponseWriter: context.Writer,
