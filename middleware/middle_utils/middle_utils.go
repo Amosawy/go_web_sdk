@@ -11,6 +11,7 @@ const REQUEST_SUCCESS = 0
 const (
 	URL_METRICS    = "/metrics"
 	URL_HEART_BEAT = "/heartbeat"
+	URL_CLB_HEART  = "/"
 )
 
 var IgnorePaths []string
@@ -19,6 +20,7 @@ func init() {
 	IgnorePaths = []string{
 		URL_HEART_BEAT,
 		URL_METRICS,
+		URL_CLB_HEART
 	}
 }
 
