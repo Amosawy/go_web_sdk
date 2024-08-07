@@ -47,8 +47,8 @@ type BodyLogWriter struct {
 
 func (w BodyLogWriter) Write(b []byte) (int, error) {
 	//copy to BodyBuf 多复制一次到buf中供后续拿到response
-	w.BodyBuf.Write(b)
-	return w.ResponseWriter.Write(b)
+	return w.BodyBuf.Write(b)
+	//return w.ResponseWriter.Write(b)
 }
 
 var (

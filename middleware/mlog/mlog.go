@@ -2,8 +2,10 @@ package mlog
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"net/http"
 	"strings"
 	"time"
 
@@ -60,6 +62,15 @@ func InfoLog() gin.HandlerFunc {
 		//if rspGetter.GetCode() != middle_utils.REQUEST_SUCCESS {
 		//	middle_utils.ReqLoginErrorVec.WithLabelValues(context.Request.URL.Path, fmt.Sprintf("%d", 1)).Inc()
 		//}
+		//6. alter response body
+		var finalResponse map[string]interface{}
+		if err := json.Unmarshal(blw.BodyBuf.Bytes(), &finalResponse); err != nil {
+			blw.ResponseWriter.WriteHeader(http.StatusInternalServerError)
+			blw.ResponseWriter.WriteString("Unable to parse response")
+		}
+		finalResponse["requestId"] = fmt.Sprintf("%+v", requestid.Get())
+		responseByte, _ := json.Marshal(finalResponse)
+		blw.ResponseWriter.Write(responseByte)
 		seelog.Infof("url: %+v, cost %v Resp Body %s", context.Request.URL, time.Since(beginTime), strBody)
 		duration := float64(time.Since(beginTime)) / float64(time.Second)
 		middle_utils.ReqDurationVec.WithLabelValues(context.Request.URL.Path).Observe(duration)

@@ -14,13 +14,13 @@ func test1(c *gin.Context) {
 
 func TestWeb(t *testing.T) {
 	engine := CreateAmosGin()
-	err := router.RegisterRouter(engine,"/api/*action")
-	engine.GET("/test",test1)
+	err := router.RegisterRouter(engine, "/api/*action")
+	engine.GET("/test", test1)
 	if err != nil {
 		fmt.Println(err.Error())
 		return
 	}
-	err = Run(engine,8080)
+	err = Run(engine, 8080)
 	if err != nil {
 		fmt.Println(err.Error())
 		return
