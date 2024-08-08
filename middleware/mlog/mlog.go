@@ -51,10 +51,6 @@ func InfoLog() gin.HandlerFunc {
 		//4. do next
 		context.Next()
 		//5. log resp body
-		strBody := strings.Trim(blw.BodyBuf.String(), "\n")
-		if len(strBody) > MAX_PRINT_BODY_LEN {
-			strBody = strBody[:(MAX_PRINT_BODY_LEN - 1)]
-		}
 		//6. judge logic error
 		//getterFactory := middle_utils.GetRespGetterFactory()
 		//rspGetter := getterFactory()
@@ -71,6 +67,10 @@ func InfoLog() gin.HandlerFunc {
 		finalResponse["requestId"] = fmt.Sprintf("%+v", requestid.Get())
 		responseByte, _ := json.Marshal(finalResponse)
 		blw.ResponseWriter.Write(responseByte)
+		strBody := strings.Trim(string(responseByte), "\n")
+		if len(strBody) > MAX_PRINT_BODY_LEN {
+			strBody = strBody[:(MAX_PRINT_BODY_LEN - 1)]
+		}
 		seelog.Infof("url: %+v, cost %v Resp Body %s", context.Request.URL, time.Since(beginTime), strBody)
 		duration := float64(time.Since(beginTime)) / float64(time.Second)
 		middle_utils.ReqDurationVec.WithLabelValues(context.Request.URL.Path).Observe(duration)
