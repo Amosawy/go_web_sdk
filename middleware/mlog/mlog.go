@@ -41,7 +41,7 @@ func InfoLog() gin.HandlerFunc {
 		}
 		requestid.Set(requestId)
 		defer requestid.Delete()
-		seelog.Infof("Req Url: %s %+v,Body %s Header: %s", context.Request.Method, context.Request.URL, string(body), tools.GetFmtStr(context.Request.Header))
+		seelog.Infof("Req Url: %s %+v,Body %s Header: %s", context.Request.Method, context.Request.URL, strings.Trim(string(body), "\n"), tools.GetFmtStr(context.Request.Header))
 		//3. set response writer
 		blw := middle_utils.BodyLogWriter{
 			ResponseWriter: context.Writer,
